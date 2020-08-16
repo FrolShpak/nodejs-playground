@@ -1,0 +1,21 @@
+{
+    "env": {
+        "browser": true,
+        "javascript": true,
+        "es2020": true,
+        "node": true,
+        "mocha": true
+    },
+    "extends": [
+        "google"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 11
+    },
+    "rules": {
+        "object-curly-spacing": ["error", "always"],
+        "indent": ["error", 4],
+        "new-cap": "warn",
+        "no-unused-vars": "warn"
+    }
+}
