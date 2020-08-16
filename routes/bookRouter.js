@@ -30,8 +30,8 @@ function routes(Book) {
             const toReturn = req.book.toJSON();
 
             toReturn.links = {};
-            toReturn.links.booksOfTheSameGenre = `http://${req.headers.host}/api/books/?genre=${req.book.genre}`
-            res.json(toReturn)
+            toReturn.links.booksOfTheSameGenre = `http://${req.headers.host}/api/books/?genre=${req.book.genre}`;
+            res.json(toReturn);
         })
         .put((req, res) => {
             const { book } = req;
@@ -39,7 +39,7 @@ function routes(Book) {
             book.author = req.body.author;
             book.genre = req.body.genre;
             book.read = req.body.read;
-            req.book.save((err)=>{
+            req.book.save((err)=> {
                 if (err) {
                     return res.send(err);
                 }
