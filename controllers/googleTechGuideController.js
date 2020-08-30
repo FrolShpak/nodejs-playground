@@ -32,11 +32,9 @@ function googleTechGuideController() {
                 }
             });
         });
-        console.log(results);
         results.sort((a, b) => {
             return b.length - a.length;
         });
-        console.log(results);
 
         // Older solution
         // const result = inputArray
