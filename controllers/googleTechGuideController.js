@@ -4,8 +4,8 @@
 function googleTechGuideController() {
     /**
      * First challenge https://techdevguide.withgoogle.com/paths/foundational/find-longest-word-in-dictionary-that-subsequence-of-given-string#!
-     * @param { any } req
-     * @param { any } res
+     * @param { Request<ParamsDictionary, any, any, qs.ParsedQs> } req
+     * @param { Response<any> } res
      * @return { any } result*/
     function challenge01(req, res) {
         const { inputString } = req.body;
@@ -13,37 +13,41 @@ function googleTechGuideController() {
         const grouped = [];
         const results = [];
 
-        inputArray.forEach((el) => {
-            grouped.push({
-                letter: el[0],
-                tuple: { word: el, index: 0 },
+        if (inputString && inputString.length > 0 &&
+        inputArray && inputArray.length > 0 ) {
+            inputArray.forEach((el) => {
+                grouped.push({
+                    letter: el[0],
+                    tuple: { word: el, index: 0 },
+                });
             });
-        });
-        inputString.split('').forEach((ch) => {
-            grouped.forEach((g) => {
-                if (g.letter === ch) {
-                    g.tuple.index++;
-                    if (g.tuple.index === g.tuple.word.length) {
-                        g.letter = undefined;
-                        results.push(g.tuple.word);
-                    } else {
-                        g.letter = g.tuple.word[g.tuple.index];
+            inputString.split('').forEach((ch) => {
+                grouped.forEach((g) => {
+                    if (g.letter === ch) {
+                        g.tuple.index++;
+                        if (g.tuple.index === g.tuple.word.length) {
+                            g.letter = undefined;
+                            results.push(g.tuple.word);
+                        } else {
+                            g.letter = g.tuple.word[g.tuple.index];
+                        }
                     }
-                }
+                });
             });
-        });
-        results.sort((a, b) => {
-            return b.length - a.length;
-        });
-
-        // Older solution
-        // const result = inputArray
-        //     .sort((a, b) => {
-        //         return b.length - a.length;
-        //     })
-        //     .find((el) => isSubstring(inputString, el));
-
-        return res.json(results[0]);
+            results.sort((a, b) => {
+                return b.length - a.length;
+            });
+            // Older solution
+            // const result = inputArray
+            //     .sort((a, b) => {
+            //         return b.length - a.length;
+            //     })
+            //     .find((el) => isSubstring(inputString, el));
+            return res.json(results[0]);
+        } else {
+            res.status(404);
+            return res.json('Empty input');
+        }
     }
 
     /**
@@ -76,7 +80,29 @@ function googleTechGuideController() {
     //     }
     // }
 
-    return { challenge01 };
+    /**
+     * Second challenge https://techdevguide.withgoogle.com/paths/foundational/stringsplosion-problem-ccocodcode/#!
+     * @param { Request<ParamsDictionary, any, any, qs.ParsedQs> } req
+     * @param { Response<any> } res
+     * @return { any } result*/
+    function challenge02(req, res) {
+        const { inputString } = req.body;
+        if (inputString && inputString.length > 0) {
+            const chars = inputString.split('');
+            let index = 0;
+            let result = '';
+            while (index <= chars.length) {
+                result += chars.slice(0, index).join('');
+                index++;
+            }
+            return res.send(result);
+        } else {
+            res.status(404);
+            return res.json('Empty input');
+        }
+    }
+
+    return { challenge01, challenge02 };
 }
 
 module.exports = googleTechGuideController;

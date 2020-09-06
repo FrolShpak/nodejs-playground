@@ -11,7 +11,7 @@ function routes() {
     googleTechGuideRouter.route('/challenges')
         .get((req, res) => {
             res.status(200);
-            return res.send('Check');
+            return res.send('Alive');
         });
 
     googleTechGuideRouter
@@ -33,6 +33,22 @@ function routes() {
             }`);
         })
         .post(controller.challenge01);
+
+    googleTechGuideRouter
+        .route('/challenges/stringSplosion')
+        .get((req, res)=> {
+            res.status(200);
+            return res.send(`Given a non-empty string like "Code" return a string like "CCoCodCode".
+
+            stringSplosion("Code") → "CCoCodCode"
+            stringSplosion("abc") → "aababc"
+            stringSplosion("ab") → "aab"
+            Example payload for post:
+            {
+                "inputString": "Code"
+            }`);
+        })
+        .post(controller.challenge02);
 
     return googleTechGuideRouter;
 }
