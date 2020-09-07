@@ -102,7 +102,49 @@ function googleTechGuideController() {
         }
     }
 
-    return { challenge01, challenge02 };
+    /**
+     * Second challenge https://techdevguide.withgoogle.com/paths/foundational/maxspan-problem-return-largest-span-array/#!
+     * @param { Request<ParamsDictionary, any, any, qs.ParsedQs> } req
+     * @param { Response<any> } res
+     * @return { any } result*/
+    function challenge03(req, res) {
+        const { inputArray } = req.body;
+        if (inputArray && inputArray.length !== 0) {
+            if (inputArray.length === 1) {
+                return res.send(1);
+            } else {
+                const results = [];
+                inputArray.forEach((elm) => {
+                    let tuple = results.find((r) => r.value === elm);
+                    if (!tuple) {
+                        tuple = {
+                            value: elm,
+                            spanArray: [],
+                            span: 0,
+                        };
+
+                        const firstInst = inputArray.indexOf(elm);
+                        const lastInst = inputArray.lastIndexOf(elm);
+                        const spanArray = inputArray.slice(firstInst, lastInst+1);
+
+                        tuple.spanArray = spanArray;
+                        tuple.span = spanArray.length;
+
+                        results.push(tuple);
+                    }
+                });
+                results.sort((a, b) => {
+                    return b.span - a.span;
+                });
+                return res.json(results[0]);
+            }
+        } else {
+            res.status(404);
+            return res.json('Empty input');
+        }
+    }
+
+    return { challenge01, challenge02, challenge03 };
 }
 
 module.exports = googleTechGuideController;
