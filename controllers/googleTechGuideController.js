@@ -45,7 +45,7 @@ function googleTechGuideController() {
             //     .find((el) => isSubstring(inputString, el));
             return res.json(results[0]);
         } else {
-            res.status(404);
+            res.status(400);
             return res.json('Empty input');
         }
     }
@@ -85,7 +85,7 @@ function googleTechGuideController() {
      * @param { Request<ParamsDictionary, any, any, qs.ParsedQs> } req
      * @param { Response<any> } res
      * @return { any } result*/
-    function challenge02(req, res) {
+    function stringSplosion(req, res) {
         const { inputString } = req.body;
         if (inputString && inputString.length > 0) {
             const chars = inputString.split('');
@@ -97,7 +97,7 @@ function googleTechGuideController() {
             }
             return res.send(result);
         } else {
-            res.status(404);
+            res.status(400);
             return res.json('Empty input');
         }
     }
@@ -107,7 +107,7 @@ function googleTechGuideController() {
      * @param { Request<ParamsDictionary, any, any, qs.ParsedQs> } req
      * @param { Response<any> } res
      * @return { any } result*/
-    function challenge03(req, res) {
+    function maxSpan(req, res) {
         const { inputArray } = req.body;
         if (inputArray && inputArray.length !== 0) {
             if (inputArray.length === 1) {
@@ -139,12 +139,31 @@ function googleTechGuideController() {
                 return res.json(results[0]);
             }
         } else {
-            res.status(404);
+            res.status(400);
             return res.json('Empty input');
         }
     }
 
-    return { challenge01, challenge02, challenge03 };
+    /**
+     * Second challenge https://techdevguide.withgoogle.com/paths/foundational/withoutstring-problem-strings-base-remove-return/#!
+     * @param { Request<ParamsDictionary, any, any, qs.ParsedQs> } req
+     * @param { Response<any> } res
+     * @return { any } result*/
+    function withoutString(req, res) {
+        let { inputString1, inputString2 } = req.body;
+        if (inputString1 && inputString1.length > 0 &&
+        inputString2 && inputString2.length > 0) {
+            while (inputString1.indexOf(inputString2) > 0) {
+                inputString1 = inputString1.replace(inputString2, '');
+            }
+            return res.send(inputString1);
+        } else {
+            res.status(400);
+            return res.json('Empty input');
+        }
+    }
+
+    return { challenge01, stringSplosion, maxSpan, withoutString };
 }
 
 module.exports = googleTechGuideController;
