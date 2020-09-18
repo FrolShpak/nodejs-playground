@@ -43,6 +43,7 @@ function googleTechGuideController() {
             //         return b.length - a.length;
             //     })
             //     .find((el) => isSubstring(inputString, el));
+            res.status(200);
             return res.json(results[0]);
         } else {
             res.status(400);
@@ -95,6 +96,7 @@ function googleTechGuideController() {
                 result += chars.slice(0, index).join('');
                 index++;
             }
+            res.status(200);
             return res.send(result);
         } else {
             res.status(400);
@@ -103,7 +105,7 @@ function googleTechGuideController() {
     }
 
     /**
-     * Second challenge https://techdevguide.withgoogle.com/paths/foundational/maxspan-problem-return-largest-span-array/#!
+     * Third challenge https://techdevguide.withgoogle.com/paths/foundational/maxspan-problem-return-largest-span-array/#!
      * @param { Request<ParamsDictionary, any, any, qs.ParsedQs> } req
      * @param { Response<any> } res
      * @return { any } result*/
@@ -136,6 +138,7 @@ function googleTechGuideController() {
                 results.sort((a, b) => {
                     return b.span - a.span;
                 });
+                res.status(200);
                 return res.json(results[0]);
             }
         } else {
@@ -145,7 +148,7 @@ function googleTechGuideController() {
     }
 
     /**
-     * Second challenge https://techdevguide.withgoogle.com/paths/foundational/withoutstring-problem-strings-base-remove-return/#!
+     * Fourth challenge https://techdevguide.withgoogle.com/paths/foundational/withoutstring-problem-strings-base-remove-return/#!
      * @param { Request<ParamsDictionary, any, any, qs.ParsedQs> } req
      * @param { Response<any> } res
      * @return { any } result*/
@@ -163,7 +166,47 @@ function googleTechGuideController() {
         }
     }
 
-    return { challenge01, stringSplosion, maxSpan, withoutString };
+    /**
+     * Fifth challenge https://techdevguide.withgoogle.com/paths/foundational/subnumbers-problem-string-return-sum/#!
+     * @param { Request<ParamsDictionary, any, any, qs.ParsedQs> } req
+     * @param { Response<any> } res
+     * @return { any } result*/
+    function sumNumbers(req, res) {
+        const { inputString } = req.body;
+        if (inputString && inputString.length > 0) {
+            const inputStringChars = inputString.split('');
+            let result = 0;
+            for (let i = 0; i < inputStringChars.length; i++) {
+                if (!isNaN(inputStringChars[i])) {
+                    const num = getNumber(inputStringChars, i);
+                    result += +num;
+                    i += num.length - 1;
+                }
+            }
+            res.status(200);
+            return res.json(result);
+        } else {
+            res.status(400);
+            return res.json('Empty input');
+        }
+    }
+
+    /**
+     * @param { string[] } inputStringChars
+     * @param { number } index
+     * @return { string } result*/
+    function getNumber(inputStringChars, index) {
+        let result = inputStringChars[index];
+        index++;
+        while (!isNaN(inputStringChars[index]) &&
+        inputStringChars[index] != ' ') {
+            result += inputStringChars[index];
+            index++;
+        }
+        return result;
+    }
+
+    return { challenge01, stringSplosion, maxSpan, withoutString, sumNumbers };
 }
 
 module.exports = googleTechGuideController;
