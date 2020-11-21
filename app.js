@@ -11,6 +11,8 @@ const express = require('express');
 // const Book = require('./models/bookModel');
 // const bookRouter = require('./routes/bookRouter')(Book);
 const googleTechGuideRouter = require('./routes/googleTechGuideRouter')();
+const reactNativePlaygroundRouter = require('./routes/reactNativePlaygroundRouter')();
+const gifExtractorRouter = require('./routes/gifExtractorRouter')();
 const port = process.env.PORT || 3000;
 
 const app = express();
@@ -18,7 +20,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // app.use('/api', bookRouter);
-app.use('/api', googleTechGuideRouter);
+app.use('/api/googleTechGuide', googleTechGuideRouter);
+app.use('/api/reactNativePlayground', reactNativePlaygroundRouter);
+app.use('/api/gifExtractor', gifExtractorRouter);
 
 app.server = app.listen(port, () => {
     console.log(`Running on port ${port}`);

@@ -1,38 +1,71 @@
 {
-  "name": "nodejs-playground",
-  "version": "1.0.0",
-  "description": "plae for learning and practice",
-  "main": "index.js",
-  "author": "Frol Shpak",
-  "license": "MIT",
-  "scripts": {
-    "start": "nodemon app.js",
-    "lint": "eslint",
-    "test": "mocha tests/**/*.test.js"
-  },
-  "dependencies": {
-    "express": "^4.17.1",
-    "mongoose": "^5.10.0",
-    "nodemon": "^2.0.4"
-  },
-  "devDependencies": {
-    "eslint": "^7.7.0",
-    "eslint-config-google": "^0.14.0",
-    "eslint-plugin-import": "^2.22.0",
-    "mocha": "^8.1.1",
-    "should": "^13.2.3",
-    "sinon": "^9.0.3",
-    "supertest": "^4.0.2"
-  },
-  "nodemonConfig": {
-    "restartable": "rs",
-    "ignore": [
-      "node_modules/**/node_modules"
-    ],
-    "delay": "2500",
-    "env": {
-      "NODE_ENV": "development",
-      "PORT": 4000
+    "name": "nodejs-playground",
+    "version": "1.0.0",
+    "description": "plae for learning and practice",
+    "main": "index.js",
+    "author": "Frol Shpak",
+    "license": "MIT",
+    "scripts": {
+        "start": "nodemon app.js",
+        "lint": "eslint",
+        "test": "mocha tests/**/*.test.js"
+    },
+    "dependencies": {
+        "express": "^4.17.1",
+        "fluent-ffmpeg": "^2.1.2",
+        "mongoose": "^5.10.0",
+        "multer": "^1.4.2",
+        "nodemon": "^2.0.4"
+    },
+    "devDependencies": {
+        "eslint": "^7.7.0",
+        "eslint-config-google": "^0.14.0",
+        "eslint-plugin-import": "^2.22.0",
+        "mocha": "^8.1.1",
+        "should": "^13.2.3",
+        "sinon": "^9.0.3",
+        "supertest": "^4.0.2"
+    },
+    "nodemonConfig": {
+        "restartable": "rs",
+        "ignore": [
+            "node_modules/**/node_modules"
+        ],
+        "delay": "2500",
+        "env": {
+            "NODE_ENV": "development",
+            "PORT": 4000
+        }
+    },
+    "prettier": {
+        "tabWidth": 4,
+        "singleQuote": true,
+        "trailingComma": "all"
+    },
+    "eslintConfig": {
+        "env": {
+            "browser": true,
+            "es2020": true
+        },
+        "extends": [
+            "google"
+        ],
+        "parserOptions": {
+            "ecmaVersion": 11,
+            "sourceType": "module"
+        },
+        "rules": {
+            "object-curly-spacing": [
+                "error",
+                "always"
+            ],
+            "indent": [
+                "error",
+                4
+            ],
+            "new-cap": "warn",
+            "no-unused-vars": "warn",
+            "max-len": "warn"
+        }
     }
-  }
 }
